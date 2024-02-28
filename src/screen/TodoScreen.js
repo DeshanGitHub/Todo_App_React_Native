@@ -7,6 +7,7 @@ import {
   FlatList,
 } from "react-native";
 import React from "react";
+import { IconButton } from "react-native-paper";
 
 const dummyData = [
   {
@@ -29,9 +30,18 @@ const TodoScreen = () => {
           paddingHorizontal: 6,
           paddingVertical: 12,
           marginBottom: 12,
+          flexDirection: "row",
+          alignItems: "center",
         }}
       >
-        <Text style={{color:'#fff', fontSize:20, fontWeight:'800'}}>{item.tittle}</Text>
+        <Text
+          style={{ color: "#fff", fontSize: 20, fontWeight: "800", flex: 1 }}
+        >
+          {item.tittle}
+        </Text>
+
+        <IconButton icon="pencil" iconColor="#fff" />
+        <IconButton icon="trash-can" iconColor="#fff" />
       </View>
     );
   };
