@@ -14,11 +14,33 @@ const TodoScreen = () => {
   //Init local states
   const [todo, setTodo] = useState("");
   const [todoList, setTodoList] = useState([]);
+  const [editedTodo, setEditedTodo] = useState(null);
 
   //Handle Delete Todo
   const handleDeleteTodo = (id) => {
     const updatedTodoList = todoList.filter((todo) => todo.id !== id);
     setTodoList(updatedTodoList);
+  };
+
+  //Handle Edit Todo
+  const handleEditTodo = (todo) => {
+    setEditedTodo(todo);
+    setTodo(todo.tittle);
+  };
+
+  //Handle Update Todo
+  const handleUpdateTodo = () => {
+    const updatedTodos = todoList.map((item) => {
+      if (item.id === editedTodo.id) {
+        return { ...item, tittle: todo };
+      }
+
+      return item;
+    });
+
+    setTodoList(updatedTodos);
+    setEditedTodo(null);
+    setTodo("");
   };
 
   //Handle Add Todo
@@ -28,6 +50,11 @@ const TodoScreen = () => {
     //     id:
     //     tittle:
     // }
+
+    if (todo === "") {
+      return;
+    }
+
     setTodoList([...todoList, { id: Date.now().toString(), tittle: todo }]);
     setTodo("");
   };
@@ -37,7 +64,7 @@ const TodoScreen = () => {
     return (
       <View
         style={{
-          backgroundColor: "#1e90ff",
+          backgroundColor: "#059669",
           borderRadius: 6,
           paddingHorizontal: 6,
           paddingVertical: 8,
@@ -56,10 +83,16 @@ const TodoScreen = () => {
           {item.tittle}
         </Text>
 
-        <IconButton icon="pencil" iconColor="#fff" />
+        <IconButton
+          icon="pencil"
+          iconColor="#5249ff"
+          onPress={() => {
+            handleEditTodo(item);
+          }}
+        />
         <IconButton
           icon="trash-can"
-          iconColor="#fff"
+          iconColor="#ff3333"
           onPress={() => handleDeleteTodo(item.id)}
         />
       </View>
@@ -71,7 +104,7 @@ const TodoScreen = () => {
       <TextInput
         style={{
           borderWidth: 2,
-          borderColor: "#1e90ff",
+          borderColor: "#059669",
           borderRadius: 6,
           paddingVertical: 8,
           paddingHorizontal: 16,
@@ -80,20 +113,38 @@ const TodoScreen = () => {
         value={todo}
         onChangeText={(userText) => setTodo(userText)}
       />
-      <TouchableOpacity
-        style={{
-          backgroundColor: "#000",
-          borderRadius: 6,
-          paddingVertical: 12,
-          marginVertical: 34,
-          alignItems: "center",
-        }}
-        onPress={() => handleAddTodo()}
-      >
-        <Text style={{ color: "#fff", fontWeight: "bold", fontSize: 20 }}>
-          Add
-        </Text>
-      </TouchableOpacity>
+
+      {editedTodo ? (
+        <TouchableOpacity
+          style={{
+            backgroundColor: "#000",
+            borderRadius: 6,
+            paddingVertical: 12,
+            marginVertical: 34,
+            alignItems: "center",
+          }}
+          onPress={() => handleUpdateTodo()}
+        >
+          <Text style={{ color: "#fff", fontWeight: "bold", fontSize: 20 }}>
+            Update
+          </Text>
+        </TouchableOpacity>
+      ) : (
+        <TouchableOpacity
+          style={{
+            backgroundColor: "#000",
+            borderRadius: 6,
+            paddingVertical: 12,
+            marginVertical: 34,
+            alignItems: "center",
+          }}
+          onPress={() => handleAddTodo()}
+        >
+          <Text style={{ color: "#fff", fontWeight: "bold", fontSize: 20 }}>
+            Add
+          </Text>
+        </TouchableOpacity>
+      )}
 
       {/* Render todo list */}
 
