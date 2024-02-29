@@ -8,6 +8,7 @@ import {
 } from "react-native";
 import React, { useState } from "react";
 import { IconButton } from "react-native-paper";
+import Fallback from "../components/Fallback";
 
 const TodoScreen = () => {
   //Init local states
@@ -97,6 +98,8 @@ const TodoScreen = () => {
       {/* Render todo list */}
 
       <FlatList data={todoList} renderItem={rendorTodos} />
+
+      {todoList.length <= 0 && <Fallback />}
     </View>
   );
 };
