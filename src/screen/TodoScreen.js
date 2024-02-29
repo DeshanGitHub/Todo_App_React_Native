@@ -25,6 +25,12 @@ const TodoScreen = () => {
   const [todo, setTodo] = useState("");
   const [todoList, setTodoList] = useState([]);
 
+  //Handle Delete Todo
+  const handleDeleteTodo = (id) => {
+    const updatedTodoList = todoList.filter((todo) => todo.id !== id);
+    setTodoList(updatedTodoList);
+  };
+
   //Handle Add Todo
   const handleAddTodo = () => {
     //Structure of a single todo item
@@ -57,7 +63,11 @@ const TodoScreen = () => {
         </Text>
 
         <IconButton icon="pencil" iconColor="#fff" />
-        <IconButton icon="trash-can" iconColor="#fff" />
+        <IconButton
+          icon="trash-can"
+          iconColor="#fff"
+          onPress={() => handleDeleteTodo(item.id)}
+        />
       </View>
     );
   };
