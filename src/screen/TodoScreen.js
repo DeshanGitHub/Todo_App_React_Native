@@ -6,7 +6,7 @@ import {
   TouchableOpacity,
   FlatList,
 } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 import { IconButton } from "react-native-paper";
 
 const dummyData = [
@@ -21,6 +21,22 @@ const dummyData = [
 ];
 
 const TodoScreen = () => {
+  //Init local states
+  const [todo, setTodo] = useState("");
+  const [todoList, setTodoList] = useState([]);
+
+  //Handle Add Todo
+  const handleAddTodo = () => {
+    //Structure of a single todo item
+    // {
+    //     id:
+    //     tittle:
+    // }
+    setTodoList([...todoList, { id: Date.now().toString(), tittle: todo }]);
+    setTodo("");
+  };
+
+  //Render Todo
   const rendorTodos = ({ item, index }) => {
     return (
       <View
@@ -57,6 +73,8 @@ const TodoScreen = () => {
           paddingHorizontal: 16,
         }}
         placeholder="Add a task"
+        value={todo}
+        onChangeText={(userText) => setTodo(userText)}
       />
       <TouchableOpacity
         style={{
@@ -66,6 +84,7 @@ const TodoScreen = () => {
           marginVertical: 34,
           alignItems: "center",
         }}
+        onPress={() => handleAddTodo()}
       >
         <Text style={{ color: "#fff", fontWeight: "bold", fontSize: 20 }}>
           Add
@@ -74,7 +93,7 @@ const TodoScreen = () => {
 
       {/* Render todo list */}
 
-      <FlatList data={dummyData} renderItem={rendorTodos} />
+      <FlatList data={todoList} renderItem={rendorTodos} />
     </View>
   );
 };
