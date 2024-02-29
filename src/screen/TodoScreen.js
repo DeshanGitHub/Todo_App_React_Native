@@ -9,17 +9,6 @@ import {
 import React, { useState } from "react";
 import { IconButton } from "react-native-paper";
 
-const dummyData = [
-  {
-    id: "01",
-    tittle: "Wash Car",
-  },
-  {
-    id: "02",
-    tittle: "Read a book",
-  },
-];
-
 const TodoScreen = () => {
   //Init local states
   const [todo, setTodo] = useState("");
@@ -50,10 +39,14 @@ const TodoScreen = () => {
           backgroundColor: "#1e90ff",
           borderRadius: 6,
           paddingHorizontal: 6,
-          paddingVertical: 12,
+          paddingVertical: 8,
           marginBottom: 12,
           flexDirection: "row",
           alignItems: "center",
+          shadowColor: "#000",
+          shadowOffset: { width: 0, height: 2 },
+          shadowOpacity: 0.8,
+          shadowRadius: 3,
         }}
       >
         <Text
@@ -79,7 +72,7 @@ const TodoScreen = () => {
           borderWidth: 2,
           borderColor: "#1e90ff",
           borderRadius: 6,
-          paddingVertical: 12,
+          paddingVertical: 8,
           paddingHorizontal: 16,
         }}
         placeholder="Add a task"
@@ -90,7 +83,7 @@ const TodoScreen = () => {
         style={{
           backgroundColor: "#000",
           borderRadius: 6,
-          paddingVertical: 8,
+          paddingVertical: 12,
           marginVertical: 34,
           alignItems: "center",
         }}
